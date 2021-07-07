@@ -113,11 +113,8 @@ def get_audio_files():
 
 get_audio_files()
 
-pip install pydub
-
-import pydub
 import shutil
-from pydub import AudioSegment
+from pydub import AudioSegment, utils
 
 chunk_size = 45000 #millisecs
 ragas = ['Kapi', 
@@ -148,7 +145,7 @@ def split_audio_files():
         if ragam in file:
           print("exporting " + file)
           audio = AudioSegment.from_file(file, format="mp3")
-          for j, chunk in enumerate(pydub.utils.make_chunks(audio, chunk_size)):
+          for j, chunk in enumerate(utils.make_chunks(audio, chunk_size)):
             file_number = file_number + 1
             filename = ragam + "-" + str(file_number) + ".mp3"
             chunk.export(filename, format="mp3")
